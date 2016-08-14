@@ -1,0 +1,148 @@
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  color: white;
+  background-color: black;
+}
+
+.splash-container {
+    background-image: url(assets/bpa.jpg);
+    height:798px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+	padding-top: 70px; 
+}
+
+.ranger-theme {
+	background-color: rgba(255, 255, 255, 0.5);
+	color: inherit;
+	opacity: .8
+  z-index: 0;
+}
+
+.ranger-text {
+	color:#002b80;
+}
+
+.inner {
+	margin: 0 auto;
+}
+
+/* Player */
+
+.player-body {
+	background-image: url(../../static/assets/green-wood.jpg);
+	background-repeat: repeat;
+}
+
+.player-name {
+  margin-top:25px;
+}
+
+.player-photo {
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 1000 !important;
+}
+
+.player-card {
+    width: 260x !important;
+    max-width: 260px !important;
+}
+
+#canvas-svg {
+  border-radius: 0.28571429rem 0.28571429rem 0em 0em !important; 
+}
+
+.filter-blurb {
+  background-color:#d3d3d3;
+}
+
+.chart-row {
+/*    background-color: white !important;*/
+}
+
+.second-chart-row {
+  margin-top: 40px;
+}
+
+.charts {
+    background-color:#d3d3d3;
+    border-radius: 0.28571429rem 0.28571429rem 0.28571429rem 0.28571429rem !important;
+}
+
+/* Team stats */
+
+/*#table-switch {
+  on-color:danger;
+}*/
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-red,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-red {
+  color: #fff;
+  background: #B90F18;
+}
+
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-blue,
+.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-blue {
+  color: #fff;
+  background: #1754A2;
+}
+
+.table-container {
+  margin-top: 40px;
+}
+
+.hitter-table {
+  margin-top: 60px !important;
+}
+
+.pitcher-table {
+  margin-top: 60px !important;
+  display: none;
+}
+
+.hitter-th, .pitcher-th {
+  white-space: pre;
+  cursor: pointer !important;
+  background-color: rgb(80, 80, 80) !important;
+  color:white !important;
+}
+
+.hitter-th-no-sort, .pitcher-th-no-sort {
+  background-color: rgb(80, 80, 80) !important;
+  color:white !important;
+}
+
+
+.sort-hitter, .sort-pitcher {
+  visibility: hidden;
+  margin-left:5px;
+}
+
+.hitter-th:hover .sort-hitter {
+  visibility: visible;
+}
+
+.hitter-tr:hover {
+    background-color: #d3d3d3;
+}
+
+
+.pitcher-th:hover .sort-pitcher {
+  visibility: visible;
+}
+
+.pitcher-tr:hover {
+    background-color: #d3d3d3;
+}
+

@@ -122,10 +122,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #django will look for static files here
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
+# Static files (CSS, JavaScript, Images)
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #Heroku configs
 
@@ -139,17 +145,3 @@ STATIC_URL = '/static/'
 # Allow all host headers
 # ALLOWED_HOSTS = ['*']
 
-# Static files (CSS, JavaScript, Images)
-# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
-
-#redundant
-#STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'static'),
-# )
-
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
