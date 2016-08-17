@@ -9,7 +9,7 @@
 }
 
 .splash-container {
-    background-image: url(assets/bpa.jpg);
+    background-image: url("assets/bpa.3cf363894d3e.jpg");
     height:798px;
 }
 
@@ -40,7 +40,7 @@ body {
 /* Player */
 
 .player-body {
-	background-image: url(assets/green-wood.jpg);
+	background-image: url("assets/green-wood.ee304ae4cded.jpg");
 	background-repeat: repeat;
 }
 

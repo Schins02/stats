@@ -40,7 +40,7 @@ body {
 /* Player */
 
 .player-body {
-	background-image: url(/assets/green-wood.jpg);
+	background-image: url(assets/green-wood.jpg);
 	background-repeat: repeat;
 }
 
