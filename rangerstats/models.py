@@ -51,7 +51,7 @@ class Hitter_Game_Record(models.Model):
 	sf = models.IntegerField()
 	slg = models.FloatField()
 	obp = models.FloatField()
-	war = models.FloatField()
+	wrc_plus = models.IntegerField()
 
 class Pitcher_Season_Stats(models.Model):
 	player = models.ForeignKey(Player)
