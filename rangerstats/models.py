@@ -35,7 +35,7 @@ class Hitter_Season_Stats(models.Model):
 
 class Hitter_Game_Record(models.Model):
 	player = models.ForeignKey(Player)
-	game_date = models.DateField()
+	game_date = models.DateTimeField() 
 	pa = models.IntegerField()
 	ab = models.IntegerField()
 	avg = models.FloatField()
@@ -74,7 +74,7 @@ class Pitcher_Season_Stats(models.Model):
 
 class Pitcher_Game_Record(models.Model):
 	player = models.ForeignKey(Player)
-	game_date = models.DateField(default=date.today)
+	game_date = models.DateTimeField() 
 	w = models.IntegerField()
 	l = models.IntegerField()
 	ip = models.FloatField()

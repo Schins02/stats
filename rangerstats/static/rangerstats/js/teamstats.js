@@ -16,7 +16,6 @@ $(function() {
   });
 
   $(".sort-hitter").click(function() {
-    console.log("CLicked");
     var field = $(this).parent()[0].innerText.toLowerCase();
     var data = []
     $(".hitter-tr").each(function() {
@@ -44,11 +43,9 @@ $(function() {
 
     var sortOrder = $("#" + field + "-sort-order").val();
     if (sortOrder == 0) {
-
       sortOnField(data, field, sortOrder);
       $("#" + field + "-sort-order").val("1");
     } else {
-
       sortOnField(data, field, sortOrder);
       $("#" + field + "-sort-order").val("0");
     }
@@ -103,14 +100,11 @@ $(function() {
       data.push(row);
     });
 
-
     var sortOrder = $("#p-" + field + "-sort-order").val();
     if (sortOrder == 0) {
-
       sortOnFieldPitcher(data, field, sortOrder);
       $("#p-" + field + "-sort-order").val("1");
     } else {
-
       sortOnFieldPitcher(data, field, sortOrder);
       $("#p-" + field + "-sort-order").val("0");
     }
@@ -497,7 +491,6 @@ function sortOnFieldPitcher(data, field, sortOrder) {
         });
       }
       break;
-
 
     case "war":
       if (sortOrder == "0") {

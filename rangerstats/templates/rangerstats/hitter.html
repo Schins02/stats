@@ -1,0 +1,110 @@
+{% extends "rangerstats/player-template.html" %} 
+{% load static %}
+{% block content %}
+
+<div class="row">
+   <div class="col-xs-3">
+      <div class="ui card player-card" style="height:460px">
+         <div class="image player-photo">
+            <img src="{% static "rangerstats/assets/Elvis.jpg" %}">
+         </div>
+         <div class="content">
+            <a class="header">Elvis Andrus</a>
+            <div class="meta">
+               <!-- <span class="date">Joined in 2013</span> -->
+            </div>
+            <div class="description">
+               SS<br>
+               B/T: R/R<br>
+               6' 0"/200<br>
+               Age: 27
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-9 charts">
+      <div id="canvas-svg">
+         <div class="col-xs-12" >
+            <div class="chart-row"> 
+               <div class="chart-group">
+                  <!-- <div class="chart-title">At bats</div> -->
+                  <p class="filter-blurb">Drag to filter by game</p>
+                  <div id="ab-bar-chart" class="chart"></div>
+               </div>
+            </div>
+         </div>
+         <div class="chart-row second-chart-row">
+            <div class="col-xs-12">
+               <div class="chart-group">
+                  <div class="col-xs-4">
+                     <div class="chart-title">Hits</div>
+                     <div id="hit-bar-chart" class="chart"></div>
+                  </div>
+                  <div class="col-xs-4">
+                     <div class="chart-title">Avg</div>
+                     <div id="avg-chart" class="chart"></div>
+                  </div>
+                  <div class="col-xs-4">
+                     <div class="chart-title">Ops</div>
+                     <div id="ops-chart" class="chart"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-xs-3"></div>
+   <div class="col-xs-8" id="hitter-game-log-table-container">
+      <table class="ui celled table hitter-game-log-table">
+      <thead>
+         <tr>
+            <th class="hitter-th">Date<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">AB<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">H<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">2B<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">3B<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">HR<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">RBI<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">K<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">BB<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">AVG<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">OBP<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">SLG<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">OPS<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th">wRC+<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for record in game_log %}
+            <tr class="hitter-tr">               
+               <td class="date">{{ record.game_date }}</td>
+               <td class="ab">{{ record.ab }}</td>
+               <td class="h">{{ record.h }}</td>
+               <td class="2b">{{ record.double }}</td>
+               <td class="3b">{{ record.triple }}</td>
+               <td class="hr">{{ record.hr }}</td>
+               <td class="rbi">{{ record.rbi }}</td>
+               <td class="k">{{ record.k }}</td>
+               <td class="bb">{{ record.bb }}</td>
+               <td class="avg">{{ record.avg|floatformat:3 }}</td>
+               <td class="obp">{{ record.obp|floatformat:3 }}</td>
+               <td class="slg">{{ record.slg|floatformat:3 }}</td>
+               <td class="ops">{{ record.ops|floatformat:3 }}</td>
+               <td class="wrc+">{{ record.wrc_plus }}</td>
+            </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+
+   </div>
+
+</div>
+
+<!-- <script type="text/javascript" src="../../static/js/player-fiddle-with-ops.js"></script>  -->
+<script type="text/javascript" src="{% static "rangerstats/js/hitter-charts.js" %}"></script>
+<script type="text/javascript">
+   //console.log("{{ game_log }}")
+   displayCharts({{ game_log_json|safe }});
+</script> 
+<!-- <script type="text/javascript" src="{% static "rangerstats/js/teamstats.js" %}"></script> -->
+{% endblock %}

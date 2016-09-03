@@ -1,12 +1,15 @@
-d3.json("/static/rougned.json", function(error, data) {
-
-    //find max for fields, will be single day max
+function displayCharts(modelData) {
+    var data = [];
+    modelData.forEach(function(d) {;
+        data.push(d.fields);
+    });
 
     var WIDTH = 480,
-        HEIGHT = 150;
+    HEIGHT = 150;
 
     data.forEach(function(d, i) {
-      d.date = d3.time.format("%Y-%m-%d").parse(d.date);
+      var splitDate = d.game_date.split('T');  
+      d.date = d3.time.format("%Y-%m-%d").parse(splitDate[0]);
       d.ab = +d.ab;
       d.h = +d.h;
       d.bb = +d.bb;
@@ -49,11 +52,12 @@ d3.json("/static/rougned.json", function(error, data) {
     //Ab chart
     var abChart = dc.barChart("#ab-bar-chart");
     abChart
-        .width(WIDTH)
+        .width(WIDTH + 320)
         .height(HEIGHT + 30)
         .x(x_scale)
         .xUnits(function() {
-            return 15;
+            //return 15;
+            return 140;
         })
         .y(d3.scale.linear().domain([0, d3.max(data, function(d) {
             return d.ab
@@ -67,7 +71,7 @@ d3.json("/static/rougned.json", function(error, data) {
 
     abChart.elasticX(true);
     abChart.xAxisPadding(1);
-    abChart.xAxis().tickFormat(d3.time.format("%b %d")).ticks(d3.time.days, 3);
+    abChart.xAxis().tickFormat(d3.time.format("%b %d")).ticks(d3.time.days, 20);
     abChart.yAxis().tickFormat(d3.format("d"));
     abChart.render();
 
@@ -225,5 +229,4 @@ d3.json("/static/rougned.json", function(error, data) {
         });
 
     opsChart.render();
-
-});
+}

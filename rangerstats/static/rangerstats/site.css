@@ -76,7 +76,8 @@ body {
 }
 
 .charts {
-    background-color:#d3d3d3;
+    /*background-color:#d3d3d3;*/
+    background-color: white;
     border-radius: 0.28571429rem 0.28571429rem 0.28571429rem 0.28571429rem !important;
 }
 
@@ -145,4 +146,14 @@ body {
 .pitcher-tr:hover {
     background-color: #d3d3d3;
 }
+
+/* Hitter Game Log Table */
+
+#hitter-game-log-table-container {
+  margin-top:20px;
+  padding-left:0;
+  margin-left:0
+}
+
+
 
