@@ -1,0 +1,15 @@
+<tr class="hitter-tr {{ forloop.counter }}">               
+   <td class="date">{{ record.game_date|date:"Y-m-d" }}</td>
+   <td class="ab">{{ record.ab }}</td>
+   <td class="h">{{ record.h }}</td>
+   <td class="2b">{{ record.double }}</td>
+   <td class="3b">{{ record.triple }}</td>
+   <td class="hr">{{ record.hr }}</td>
+   <td class="rbi">{{ record.rbi }}</td>
+   <td class="k">{{ record.k }}</td>
+   <td class="bb">{{ record.bb }}</td>
+   <td class="avg">{{ record.avg|floatformat:3 }}</td>
+   <td class="obp">{{ record.obp|floatformat:3 }}</td>
+   <td class="slg">{{ record.slg|floatformat:3 }}</td>
+   <td class="wrc_plus">{{ record.wrc_plus }}</td>
+</tr>

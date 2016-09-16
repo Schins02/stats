@@ -20,7 +20,6 @@ $(function() {
     var data = []
     $(".hitter-tr").each(function() {
       var row = {};
-      //row.className = this.className;
       row.name = $(this).find(".name")[0].innerText;
       row.g = +$(this).find(".g")[0].innerText;
       row.ab = +$(this).find(".ab")[0].innerText;
@@ -51,7 +50,6 @@ $(function() {
     }
 
     var index = 0;
-
     var tbody = $(".hitter-table tbody");
     var rows = tbody.children();
     rows.each(function() {

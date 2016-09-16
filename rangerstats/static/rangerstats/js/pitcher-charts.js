@@ -9,7 +9,9 @@ function displayCharts(modelData) {
   });
 
   data.forEach(function(d, i) {
-    d.game_date = d3.time.format("%Y-%m-%d").parse(d.game_date);
+    //d.game_date = d3.time.format("%Y-%m-%d").parse(d.game_date);
+    var splitDate = d.game_date.split('T');  
+    d.game_date = d3.time.format("%Y-%m-%d").parse(splitDate[0]);
   });
 
   var playerData = crossfilter(data);
@@ -35,11 +37,11 @@ function displayCharts(modelData) {
   x_scale.domain(x_domain);
 
   ipChart
-    .width(WIDTH)
+    .width(WIDTH + 320)
     .height(HEIGHT + 30)
     .x(x_scale)
     .xUnits(function() {
-      return 15;
+      return 50;
     })
     .y(d3.scale.linear().domain([0, 9]))
     .yAxisLabel("Innings Pitched")
@@ -51,7 +53,7 @@ function displayCharts(modelData) {
 
   ipChart.elasticX(true);
   ipChart.xAxisPadding(1);
-  ipChart.xAxis().tickFormat(d3.time.format("%b %d")).ticks(d3.time.days, 3);
+  ipChart.xAxis().tickFormat(d3.time.format("%b %d")).ticks(d3.time.days, 18);
   ipChart.yAxis().tickFormat(d3.format("d"));
   ipChart.render();
 
@@ -109,7 +111,6 @@ function displayCharts(modelData) {
     .valueAccessor(function(p) {
       if (p.value.ip > 0) {
         var whip = (p.value.h + p.value.bb) / p.value.ip;;
-        //console.log(whip);
         return whip
       } else
         return 0;

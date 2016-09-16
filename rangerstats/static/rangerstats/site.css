@@ -54,9 +54,30 @@ body {
   z-index: 1000 !important;
 }
 
+.indiv-stats-player-photo {
+  width: 200px;
+  height: 300.469px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.indiv-stats-player-photo img {
+  width: 100%;
+  height: auto;
+}
+
 .player-card {
-    width: 260x !important;
+    width: 260x !important; /* Test taking this out */
     max-width: 260px !important;
+    height:460px !important;
+}
+
+.indiv-stats-player-card {
+    max-width: 215px !important;
+}
+
+.indiv-stats-player-card:hover {
+  cursor: pointer;;
 }
 
 #canvas-svg {
@@ -64,7 +85,7 @@ body {
 }
 
 .filter-blurb {
-  background-color:#d3d3d3;
+  background-color:white;
 }
 
 .chart-row {
@@ -124,12 +145,16 @@ body {
   color:white !important;
 }
 
-
+/* FIX TABLE ON TEAMSTATS AND SIMPLIFY STMT */
+.hitter-th > small, .pitcher-th > small, 
+/* fix the below on team stats */
 .sort-hitter, .sort-pitcher {
   visibility: hidden;
   margin-left:5px;
 }
 
+.hitter-th:hover > small, .pitcher-th:hover > small,
+/* fix the below on team stats*/
 .hitter-th:hover .sort-hitter {
   visibility: visible;
 }
@@ -149,11 +174,19 @@ body {
 
 /* Hitter Game Log Table */
 
-#hitter-game-log-table-container {
+/*#hitter-game-log-table-container {
+  margin-top:20px;
+  padding-left:0;
+  margin-left:0
+}*/
+
+#game-log-table-container {
   margin-top:20px;
   padding-left:0;
   margin-left:0
 }
 
-
+/*.hidden_row td{
+   display:none;
+}*/
 

@@ -2,22 +2,37 @@
 {% load static %}
 {% block content %}
 
+<input type="hidden" id="date-sort-order" value="0">
+<input type="hidden" id="ab-sort-order" value="0">
+<input type="hidden" id="h-sort-order" value="0">
+<input type="hidden" id="2b-sort-order" value="0">
+<input type="hidden" id="3b-sort-order" value="0">
+<input type="hidden" id="hr-sort-order" value="0">
+<input type="hidden" id="rbi-sort-order" value="0">
+<input type="hidden" id="k-sort-order" value="0">
+<input type="hidden" id="bb-sort-order" value="0">
+<input type="hidden" id="avg-sort-order" value="0">
+<input type="hidden" id="obp-sort-order" value="0">
+<input type="hidden" id="slg-sort-order" value="0">
+<input type="hidden" id="wrc_plus-sort-order" value="0">
+
 <div class="row">
    <div class="col-xs-3">
-      <div class="ui card player-card" style="height:460px">
+      <div class="ui card player-card">
          <div class="image player-photo">
-            <img src="{% static "rangerstats/assets/Elvis.jpg" %}">
+            {% with "rangerstats/assets/"|add:player.first_name|add:".jpg" as image %}
+            <img src="{% static image %}">
+            {% endwith %}
          </div>
          <div class="content">
-            <a class="header">Elvis Andrus</a>
+            <div class="header">{{ player.first_name }} {{ player.last_name }}</div>
             <div class="meta">
-               <!-- <span class="date">Joined in 2013</span> -->
             </div>
             <div class="description">
-               SS<br>
-               B/T: R/R<br>
-               6' 0"/200<br>
-               Age: 27
+               {{player.position}}<br>
+               B/T: {{ player.bat }}/{{player.throw}}<br>
+               {{player.height}}/{{ player.weight }}<br>
+               Age: {{player.age}}
             </div>
          </div>
       </div>
@@ -27,7 +42,6 @@
          <div class="col-xs-12" >
             <div class="chart-row"> 
                <div class="chart-group">
-                  <!-- <div class="chart-title">At bats</div> -->
                   <p class="filter-blurb">Drag to filter by game</p>
                   <div id="ab-bar-chart" class="chart"></div>
                </div>
@@ -54,57 +68,49 @@
       </div>
    </div>
    <div class="col-xs-3"></div>
-   <div class="col-xs-8" id="hitter-game-log-table-container">
-      <table class="ui celled table hitter-game-log-table">
+   <div class="col-xs-9" id="game-log-table-container">
+      <table class="ui celled table game-log-table">
       <thead>
          <tr>
-            <th class="hitter-th">Date<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">AB<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">H<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">2B<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">3B<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">HR<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">RBI<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">K<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">BB<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">AVG<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">OBP<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">SLG<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">OPS<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
-            <th class="hitter-th">wRC+<small class="sort-hitter"><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="date">Date<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="ab">AB<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="h">H<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="2b">2B<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="3b">3B<small><span class="glyphicon glyphicon-sort"></span></small></th>
+<!--             <th class="hitter-th" data-stat="double">2B<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="triple">3B<small><span class="glyphicon glyphicon-sort"></span></small></th> -->
+            <th class="hitter-th" data-stat="hr">HR<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="rbi">RBI<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="k">K<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="bb">BB<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="avg">AVG<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="obp">OBP<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="slg">SLG<small><span class="glyphicon glyphicon-sort"></span></small></th>
+            <th class="hitter-th" data-stat="wrc_plus">wRC+<small><span class="glyphicon glyphicon-sort"></span></small></th>
          </tr>
       </thead>
       <tbody>
          {% for record in game_log %}
-            <tr class="hitter-tr">               
-               <td class="date">{{ record.game_date }}</td>
-               <td class="ab">{{ record.ab }}</td>
-               <td class="h">{{ record.h }}</td>
-               <td class="2b">{{ record.double }}</td>
-               <td class="3b">{{ record.triple }}</td>
-               <td class="hr">{{ record.hr }}</td>
-               <td class="rbi">{{ record.rbi }}</td>
-               <td class="k">{{ record.k }}</td>
-               <td class="bb">{{ record.bb }}</td>
-               <td class="avg">{{ record.avg|floatformat:3 }}</td>
-               <td class="obp">{{ record.obp|floatformat:3 }}</td>
-               <td class="slg">{{ record.slg|floatformat:3 }}</td>
-               <td class="ops">{{ record.ops|floatformat:3 }}</td>
-               <td class="wrc+">{{ record.wrc_plus }}</td>
-            </tr>
+            {% if forloop.counter|divisibleby:10 and forloop.counter < 40 %}
+                  {% include "rangerstats/hitter-th-row-with-sort.html" %}
+            {% elif forloop.counter|divisibleby:10 %}
+                  {% include "rangerstats/hitter-th-row-without-sort.html" %}
+            {% endif %}
+            {%  if forloop.counter < 40 %}
+               {% include "rangerstats/hitter-visible-row.html" %}
+            {% else %}
+               {% include "rangerstats/hitter-hidden-row.html" %}
+            {% endif %}
          {% endfor %}
       </tbody>
    </table>
-
    </div>
 
 </div>
 
-<!-- <script type="text/javascript" src="../../static/js/player-fiddle-with-ops.js"></script>  -->
 <script type="text/javascript" src="{% static "rangerstats/js/hitter-charts.js" %}"></script>
 <script type="text/javascript">
-   //console.log("{{ game_log }}")
    displayCharts({{ game_log_json|safe }});
 </script> 
-<!-- <script type="text/javascript" src="{% static "rangerstats/js/teamstats.js" %}"></script> -->
+<script type="text/javascript" src="{% static "rangerstats/js/hitter.js" %}"></script>
 {% endblock %}

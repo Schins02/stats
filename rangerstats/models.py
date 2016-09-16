@@ -6,6 +6,11 @@ class Player(models.Model):
 	first_name = models.CharField(max_length = 30)
 	last_name = models.CharField(max_length = 30)
 	position = models.CharField(max_length = 15)
+	bat = models.CharField(max_length = 10)
+	throw = models.CharField(max_length = 15)
+	height = models.CharField(max_length = 10)
+	weight = models.IntegerField()
+	age = models.IntegerField()
 	team = models.CharField(max_length = 40)
 
 	def __str__(self):
@@ -31,7 +36,6 @@ class Hitter_Season_Stats(models.Model):
 	obp = models.FloatField()
 	ops = models.FloatField()
 	war = models.FloatField()
-
 
 class Hitter_Game_Record(models.Model):
 	player = models.ForeignKey(Player)

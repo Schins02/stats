@@ -8,15 +8,24 @@ from django.core import serializers
 def index(request):
 	return render(request, 'rangerstats/index.html')
 
+def individual_stats(request):
+	players = models.Player.objects.all().order_by('last_name')
+	context = {'players' : players }
+	return render(request, 'rangerstats/individual-stats.html', context)
+
 def hitter(request, player_id):
 	player = models.Player.objects.get(pk=player_id)
-	game_log = models.Hitter_Game_Record.objects.filter(player=player)
+	game_log = models.Hitter_Game_Record.objects.filter(player=player).order_by('-game_date')
 	game_log_json = serializers.serialize("json", models.Hitter_Game_Record.objects.filter(player=player))
-	print type(game_log)
-	# for n in game_log:
-	# 	print n
 	context = {'player': player, 'game_log': game_log, 'game_log_json': game_log_json }
 	return render(request, 'rangerstats/hitter.html', context)
+
+def pitcher(request, player_id):
+	player = models.Player.objects.get(pk=player_id)
+	game_log = models.Pitcher_Game_Record.objects.filter(player=player).order_by('-game_date')
+	game_log_json = serializers.serialize("json", models.Pitcher_Game_Record.objects.filter(player=player))
+	context = {'player': player, 'game_log': game_log, 'game_log_json': game_log_json }
+	return render(request, 'rangerstats/pitcher.html', context)
 
 def teamstats(request):
 	hitter_stats_dict = {}

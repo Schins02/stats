@@ -1,0 +1,18 @@
+Remove uneccesary files from git
+Headers with totals over individual charts
+Highlight row sorted
+Fix Th small span in teamstats table and js and css
+Try to get rid of find()[0] in js
+Remove hidden inputs for sort order, move into js
+Make click to slide down animation nicer
+Add hyphens to teamstats html and view func
+change quotes in static tags to '
+remove tr that are filtered out
+team aggregate stat charts
+experiment adding era, fip xfip to pitcher game log rows
+WIDTH and HEIGHT in js mod?
+splitDate in js fix
+main template vs index template template 
+find max for individual stat in chart and set x axis max to that
+common.js for link clicks on header
+API
