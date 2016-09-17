@@ -6,7 +6,9 @@ import os, json
 # "Delino_DeShields", "Ian_Desmond", "Carlos_Gomez", "Jared_Hoying", "Nomar_Mazara", "Ryan_Rua",
 # "Carlos_Beltran"]
 
-hitters = ["Robinson_Chirinos"]
+hitters = ["Robinson_Chirinos", "Jonathan_Lucroy", "Brett_Nicholas", "Hanser_Alberto", "Elvis_Andrus",
+"Adrian_Beltre", "Joey_Gallo", "Mitch_Moreland", "Rougned_Odor", "Jurickson_Profar", "Delino_DeShields",
+"Ian_Desmond", "Carlos_Gomez", "Jared_Hoying", "Nomar_Mazara", "Ryan_Rua", "Carlos_Beltran"]
 
 tracked_stats = ["PA", "AB",  "AVG", "H", "1B", "2B", "3B", "HR", "RBI", "BB",
  "SO", "HBP", "SF", "SLG", "OBP", "wRC+"]

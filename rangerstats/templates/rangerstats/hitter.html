@@ -20,7 +20,7 @@
    <div class="col-xs-3">
       <div class="ui card player-card">
          <div class="image player-photo">
-            {% with "rangerstats/assets/"|add:player.first_name|add:".jpg" as image %}
+            {% with "rangerstats/assets/"|add:player.first_name|add:"_"|add:player.last_name|add:".jpg" as image %}
             <img src="{% static image %}">
             {% endwith %}
          </div>

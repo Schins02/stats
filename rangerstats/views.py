@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.template import loader
 from . import models
 import json
-# from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
 
 def index(request):
@@ -10,7 +9,22 @@ def index(request):
 
 def individual_stats(request):
 	players = models.Player.objects.all().order_by('last_name')
-	context = {'players' : players }
+	
+	num_rows = len(players) / 4
+	if len(players) % 4 != 0:
+		num_rows += 1
+	player_rows = [[] for i in range(num_rows)]
+	player_index = 0
+	row_index = 0
+	row = player_rows[0]
+	for player in players:
+		if player_index % 4 == 0 and row_index != 0:
+			row_index += 1
+			row = player_rows[row_index]
+		row.append(player)
+		player_index += 1
+
+	context = {'player_rows' : player_rows}
 	return render(request, 'rangerstats/individual-stats.html', context)
 
 def hitter(request, player_id):
