@@ -70,6 +70,14 @@ function sortTable(field) {
       $(this).find(".wrc_plus")[0].innerText = newRow.wrc_plus;
       index++;
     });
+
+    $(".sorted-on").each(function(){
+      $(this).removeClass("sorted-on");
+    })
+
+    $("tr td." + field).each(function(){
+      $(this).addClass("sorted-on");
+    })
 }
 
 function sortOnField(data, field, sortOrder) {

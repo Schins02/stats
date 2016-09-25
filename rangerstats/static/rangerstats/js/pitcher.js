@@ -40,7 +40,7 @@ function sortTable(field) {
     var rows = $(".game-log-table tbody .pitcher-tr");
     rows.each(function() {
       var newRow = data[index];
-      var month = "0" + (newRow.date.getUTCMonth() + 1); //months from 1-12
+      var month = "0" + (newRow.date.getUTCMonth() + 1); 
       var day = "0" + newRow.date.getUTCDate()
       var year = newRow.date.getUTCFullYear();
       $(this).find(".date")[0].innerText = year + "-" + month.slice(-2) + "-" + day.slice(-2);
@@ -56,6 +56,14 @@ function sortTable(field) {
       $(this).find(".hr")[0].innerText = newRow.hr;
       index++;
     });
+
+    $(".sorted-on").each(function(){
+      $(this).removeClass("sorted-on");
+    })
+
+    $("tr td." + field).each(function(){
+      $(this).addClass("sorted-on");
+    })
 }
 
 function sortOnField(data, field, sortOrder) {

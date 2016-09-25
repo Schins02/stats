@@ -1,3 +1,7 @@
+Parameterize bar width?
+Hide rows for pitchers
+CLICKING ON BAR GRAPH KILLS OTHERS
+custom template tag for row?
 Remove uneccesary files from git
 Headers with totals over individual charts
 Highlight row sorted

@@ -6,11 +6,9 @@ $(function() {
   $(bsSwitch).on("switchChange.bootstrapSwitch", function(event, state) {
     if (state) {
       $(".hitter-table").css("display", "");
-      //console.log("if evenrt" + event);
       $(".pitcher-table").css("display", "none");
     } else {
       $(".hitter-table").css("display", "none");
-      // $(".pitcher-table").css("display", "block");
       $(".pitcher-table").show();
     }
   });
@@ -72,6 +70,14 @@ $(function() {
       $(this).find(".war")[0].innerText = newRow.war.toFixed(2);
       index++;
     });
+
+    $(".hitter.sorted-on").each(function(){
+      $(this).removeClass("sorted-on");
+    });
+
+    $(".hitter." + field).each(function(){
+      $(this).addClass("sorted-on");
+    });
   });
 
   $(".sort-pitcher").click(function() {
@@ -131,7 +137,17 @@ $(function() {
       $(this).find(".war")[0].innerText = newRow.war.toFixed(2);
       index++;
     });
+
+    $(".pitcher.sorted-on").each(function(){
+      $(this).removeClass("sorted-on");
+    });
+
+    $(".pitcher." + field).each(function(){
+      $(this).addClass("sorted-on");
+    });
+
   });
+
 });
 
 function sortOnField(data, field, sortOrder) {

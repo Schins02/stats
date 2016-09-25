@@ -1,4 +1,4 @@
-function displayCharts(modelData) {
+function displayCharts(modelData, seasonStats) {
 
   var WIDTH = 480,
     HEIGHT = 150;
@@ -8,11 +8,23 @@ function displayCharts(modelData) {
     data.push(d.fields);
   });
 
+  var totalIp = 0;
+  //var totalPartialIn
   data.forEach(function(d, i) {
     //d.game_date = d3.time.format("%Y-%m-%d").parse(d.game_date);
     var splitDate = d.game_date.split('T');  
     d.game_date = d3.time.format("%Y-%m-%d").parse(splitDate[0]);
+    var splitIp = d.ip.toString().split('.');
+    //partial ip denoted by .1 for 1 out of 3 outs, and .2 for 2 out of 3, adjust accordingly
+    if(splitIp.length == 2) {
+      var test = +splitIp[0] + (+splitIp[1] * .33)
+      d.ip = +splitIp[0] + (+splitIp[1] * .33)
+    } else {
+      d.ip = parseFloat(d.ip);
+     }
   });
+
+  var m = "";
 
   var playerData = crossfilter(data);
 
@@ -27,6 +39,22 @@ function displayCharts(modelData) {
   var ipGroupByDate = dateDim.group().reduceSum(function(d) {
     return d.ip;
   });
+
+  var bfGroup = playerData.groupAll().reduceSum(function(d){
+    return d.bf;
+  })
+
+  var bbGroup = playerData.groupAll().reduceSum(function(d){
+    return d.bb;
+  })
+
+  var totalBattersFaced = bfGroup.value();
+  var totalWalks = bbGroup.value();
+  $("#selected-whip").text("Whip: " + seasonStats[0].fields.whip);
+  $("#selected-k-ratio").text("K-ratio: " + (seasonStats[0].fields.k / totalBattersFaced).toFixed(2) + "%");
+  $("#selected-bb-ratio").text("BB-ratio: " + (totalWalks / totalBattersFaced).toFixed(2) + "%");
+  $("#selected-era").text("ERA: " + seasonStats[0].fields.era);
+
 
   var ipChart = dc.barChart("#ip-chart");
 
@@ -94,6 +122,7 @@ function displayCharts(modelData) {
 
   var allWhip = ipDim.groupAll().reduce(whipReduceAdd, whipReduceRemove, whipReduceInitial);
   var regTotalWhip = regularize_groupAll(allWhip);
+  var selectedWhip = 0;
 
   whipChart
     .width(150)
@@ -110,11 +139,20 @@ function displayCharts(modelData) {
     .group(regTotalWhip)
     .valueAccessor(function(p) {
       if (p.value.ip > 0) {
-        var whip = (p.value.h + p.value.bb) / p.value.ip;;
-        return whip
+        selectedWhip = ((p.value.h + p.value.bb) / p.value.ip).toFixed(2);
+        return selectedWhip;
+        //var whip = (p.value.h + p.value.bb) / p.value.ip;
+        //return whip
       } else
-        return 0;
-    });
+        selectedWhip = 0;
+        return selectedWhip;
+        //return 0;
+    })
+    .on("postRedraw", updateWhip);
+
+    function updateWhip() {
+      $("#selected-whip").text("Whip: " + selectedWhip);
+    }
 
   whipChart.render();
 
@@ -141,6 +179,7 @@ function displayCharts(modelData) {
 
   var allKRatio = ipDim.groupAll().reduce(kRatioReduceAdd, kRatioRemove, kRatioReduceInitial);
   var regTotalKRatio = regularize_groupAll(allKRatio);
+  var selectedKRatio = 0;
 
   kRatioChart
     .width(150)
@@ -157,10 +196,17 @@ function displayCharts(modelData) {
     .group(regTotalKRatio)
     .valueAccessor(function(p) {
       if (p.value.bf > 0) {
-        return p.value.k / p.value.bf;
+        selectedKRatio = (p.value.k / p.value.bf).toFixed(2);
+        return selectedKRatio;
       } else
-        return 0;
-    });
+        selectedKRatio = 0;
+        return selectedKRatio;
+    })
+    .on("postRedraw", updateKRatio);
+
+    function updateKRatio(){
+      $("#selected-k-ratio").text("K-ratio: " + selectedKRatio + "%");
+    }
 
   kRatioChart.render();
 
@@ -187,6 +233,7 @@ function displayCharts(modelData) {
 
   var allBBRatio = ipDim.groupAll().reduce(bbRatioReduceAdd, bbReduceRatioRemove, bbRatioReduceInitial);
   var regTotalBBRatio = regularize_groupAll(allBBRatio);
+  var selectedBBRatio = 0;
 
   bbRatioChart
     .width(150)
@@ -203,10 +250,17 @@ function displayCharts(modelData) {
     .group(regTotalBBRatio)
     .valueAccessor(function(p) {
       if (p.value.bf > 0) {
-        return p.value.bb / p.value.bf;
+        selectedBBRatio = (p.value.bb / p.value.bf).toFixed(2);
+        return selectedBBRatio;
       } else
-        return 0;
-    });
+        selectedBBRatio = 0;
+        return selectedBBRatio;
+    })
+    .on("postRedraw", updateBBRatio);
+
+    function updateBBRatio() {
+      $("#selected-bb-ratio").text("BB-ratio: " + selectedBBRatio + "%");
+    }
 
   bbRatioChart.render();
 
@@ -233,6 +287,7 @@ function displayCharts(modelData) {
 
   var allera = ipDim.groupAll().reduce(eraReduceAdd, eraReduceRemove, eraReduceInitial);
   var regTotalERA = regularize_groupAll(allera);
+  var selectedEra = 0;
 
   eraChart
     .width(150)
@@ -249,10 +304,17 @@ function displayCharts(modelData) {
     .group(regTotalERA)
     .valueAccessor(function(p) {
       if (p.value.ip > 0) {
-        return (p.value.er / p.value.ip) * 9;
+        selectedEra = ((p.value.er / p.value.ip) * 9).toFixed(2);
+        return selectedEra;
       } else
-        return 0;
-    });
+        selectedEra = 0;
+        return selectedEra;
+    })
+    .on("postRedraw", updateEra);
+
+    function updateEra() {
+      $("#selected-era").text("ERA: " + selectedEra)
+    }
 
   eraChart.render();
 

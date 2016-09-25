@@ -1,0 +1,24 @@
+{% extends "rangerstats/main-template.html" %} 
+{% load static %}
+{% block content %}
+ <link type="text/css" href="{% static "rangerstats/item.min.css" %}" rel="stylesheet">
+ <div class="row">
+	 <div class="col-xs-9" id="about-info-container">
+	 	<div class="col-xs-4" id="about-img-container">
+			{% with "rangerstats/assets/js.jpg" as image %}
+	            <img id="about-img" src="{% static image %}">
+	         {% endwith %}
+	    </div>
+	    <div class="col-xs-6" id="about-txt-container">
+	    	<div class="col-xs-2"></div>
+	    	<div class="col-xs-10"><h3>John Schindler</h3></div>
+	    	<div class="col-xs-2"></div>
+	    	<div class="col-xs-10"><h3 class="more-about-txt">Austin, Tx</h3></div>
+	    	<div class="col-xs-2"></div>
+	    	<div class="col-xs-10"><h3 class="more-about-txt">RangerStatsInq@gmail.com</h3></div>
+	    	<div class="col-xs-2"></div>
+	    	<div class="col-xs-10"><h3 class="more-about-txt">https://github.com/Schins02/stats</h3></div>
+	    </div>
+	 </div>
+</div>
+{% endblock %}

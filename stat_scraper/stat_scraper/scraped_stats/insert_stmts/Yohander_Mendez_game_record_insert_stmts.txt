@@ -1,1 +1,1 @@
-INSERT INTO rangerstats_pitcher_game_record (game_date, w, l, ip, bf, r, er, h, bb, k, hr, bb, player_id) VALUES (to_date('2016-09-05', 'YYYY-MM-DD'), 0, 0, 1.0, 9, 5, 5, 4, 1, 0, 0, 1,  (select id from rangerstats_player where first_name = 'Yohander' and last_name = 'Mendez'));
+INSERT INTO rangerstats_pitcher_game_record (game_date, w, l, ip, bf, r, er, h, bb, k, hr, player_id) VALUES (to_date('2016-09-05', 'YYYY-MM-DD'), 0, 0, 1.0, 9, 5, 5, 4, 1, 0, 0,  (select id from rangerstats_player where first_name = 'Yohander' and last_name = 'Mendez'));

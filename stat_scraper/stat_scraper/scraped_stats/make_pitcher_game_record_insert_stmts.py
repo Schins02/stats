@@ -1,16 +1,15 @@
-
 import os, json
 
 pitchers = ["Dario_Alvarez", "Tony_Barnette", "Matt_Bush", "Alex_Claudio", "Yu_Darvish", 
 "Jake_Diekman", "Sam_Dyson", "A.J._Griffin","Cole_Hamels", "Derek_Holland", "Keone_Kela",
 "Jose_Leclerc", "Colby_Lewis", "Nick_Martinez", "Yohander_Mendez", "Martin_Perez", "Tanner_Scheppers"]
 
-tracked_stats = ["W", "L",  "IP", "TBF", "ER", "R", "H", "BB", "SO", "HR", "BB"]
+tracked_stats = ["W", "L",  "IP", "TBF", "ER", "R", "H", "BB", "SO", "HR"]
 
 tracked_stats_formatted = {"W":"w", "L":"l",  "IP":"ip", "TBF":"bf", "R":"r", "ER":"er", 
-"H":"h" , "BB":"bb", "SO":"k", "HBP":"hbp", "BB":"bb"}
+"H":"h" , "BB":"bb", "SO":"k", "HBP":"hbp"}
 
-base_insert_stmt = "INSERT INTO rangerstats_pitcher_game_record (game_date, w, l, ip, bf, r, er, h, bb, k, hr, bb, player_id) VALUES "
+base_insert_stmt = "INSERT INTO rangerstats_pitcher_game_record (game_date, w, l, ip, bf, r, er, h, bb, k, hr, player_id) VALUES "
 
 cwd = os.getcwd()
 for pitcher_name in pitchers:

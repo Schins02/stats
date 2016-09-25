@@ -90,8 +90,3 @@ class Pitcher_Game_Record(models.Model):
 	k = models.IntegerField()
 	hr = models.IntegerField()
 
-
-
-
-
-

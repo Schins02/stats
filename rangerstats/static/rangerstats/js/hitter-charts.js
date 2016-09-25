@@ -1,11 +1,14 @@
-function displayCharts(modelData) {
+function displayCharts(modelData, seasonStats) {
     var data = [];
-    modelData.forEach(function(d) {;
+    modelData.forEach(function(d) {
         data.push(d.fields);
     });
 
     var WIDTH = 480,
     HEIGHT = 150;
+
+    var maxAvg = 0;
+    var maxOps = 0;
 
     data.forEach(function(d, i) {
       var splitDate = d.game_date.split('T');  
@@ -14,7 +17,6 @@ function displayCharts(modelData) {
       d.h = +d.h;
       d.bb = +d.bb;
       d.avg = parseFloat(d.avg);
-      d.ops = parseFloat(d.ops);
       d.war = parseFloat(d.war);
       d.index = +d.index;
       d.hbp = +d.hbp;
@@ -23,7 +25,12 @@ function displayCharts(modelData) {
       d.triple = +d.triple;
       d.hr = +d.hr;
       d.sf = +d.sf;
+      maxAvg = d.avg > maxAvg ? d.avg : maxAvg;
+      maxOps = (d.slg + d.obp) > maxOps ? (d.slg + d.obp) : maxOps;
     });
+    $("#selected-hits").text("Hits: " + seasonStats[0].fields.h);
+    $("#selected-avg").text("Avg: " + seasonStats[0].fields.avg);
+    $("#selected-ops").text("Ops: " + seasonStats[0].fields.ops);
 
     var playerData = crossfilter(data),
         dateDim = playerData.dimension(function(d) {
@@ -48,7 +55,6 @@ function displayCharts(modelData) {
     var x_scale = d3.time.scale();
     x_scale.domain(x_domain);
 
-
     //Ab chart
     var abChart = dc.barChart("#ab-bar-chart");
     abChart
@@ -56,7 +62,6 @@ function displayCharts(modelData) {
         .height(HEIGHT + 30)
         .x(x_scale)
         .xUnits(function() {
-            //return 15;
             return 140;
         })
         .y(d3.scale.linear().domain([0, d3.max(data, function(d) {
@@ -89,12 +94,26 @@ function displayCharts(modelData) {
         };
     }
 
-    var allHits = playerData.groupAll().reduceSum(function(d) {
-        return d.h;
-    });
-    var totalHits = allHits.value();
-    console.log("Total hits " + totalHits)
+    function hitReduceAdd(p, v) {
+        p.h += v.h;
+        return p;
+    }
+
+    function hitReduceRemove(p, v) {
+        p.h -= v.h;
+        return p;
+    }
+
+    function hitReduceInitial() {
+        return {
+            h: 0
+        };
+    }
+
+    var allHits = abDim.groupAll().reduce(hitReduceAdd, hitReduceRemove, hitReduceInitial);
+    var totalHits = allHits.value().h;
     var regAllHits = regularize_groupAll(allHits);
+    var selectedHits = 0;
 
     hitChart
         .width(200)
@@ -105,10 +124,20 @@ function displayCharts(modelData) {
         .yAxisLabel("")
         .centerBar(true)
         .colors("#1754A2")
-        .dimension(hitDim)
+        .dimension(abDim)
         .brushOn(false)
         .alwaysUseRounding(true)
         .group(regAllHits)
+        .valueAccessor(function(p){
+            selectedHits = p.value.h
+            return selectedHits;
+        })
+        .on("postRedraw", updateHits);
+
+        function updateHits(){
+            $("#selected-hits").text("Hits: " + selectedHits);
+        }
+
 
     hitChart.render();
 
@@ -136,16 +165,15 @@ function displayCharts(modelData) {
 
     var allAvg = abDim.groupAll().reduce(avgReduceAdd, avgReduceRemove, avgReduceInitial);
     var totalAvg = allAvg.value()
-    console.log("Total avg total hit count" + totalAvg.total)
-    console.log("Total avg count ab count" + totalAvg.count)
     var regTotalAvg = regularize_groupAll(allAvg);
+    var selectedAvg = 0;
 
     avgChart
         .width(200)
         .height(HEIGHT + 30)
         .x(d3.scale.ordinal().domain(["Avg"]))
         .xUnits(dc.units.ordinal)
-        .y(d3.scale.linear().domain([0, 1]))
+        .y(d3.scale.linear().domain([0, maxAvg]))
         .yAxisLabel("")
         .centerBar(true)
         .colors("#1754A2")
@@ -154,8 +182,14 @@ function displayCharts(modelData) {
         .alwaysUseRounding(true)
         .group(regTotalAvg)
         .valueAccessor(function(p) {
-            return p.value.count > 0 ? p.value.total / p.value.count : 0
-        });
+            selectedAvg = p.value.count > 0 ? (p.value.total / p.value.count).toFixed(3) : 0
+            return selectedAvg
+        })
+        .on("postRedraw", updateAvg);
+
+        function updateAvg(){
+            $("#selected-avg").text("Avg: " + selectedAvg)
+        }
 
     avgChart.render();
 
@@ -204,13 +238,14 @@ function displayCharts(modelData) {
 
     var allOps = abDim.groupAll().reduce(opsReduceAdd, opsReduceRemove, opsReduceInitial);
     var regTotalOps = regularize_groupAll(allOps);
+    var selectedOps = 0;
 
     opsChart
         .width(200)
         .height(HEIGHT + 30)
         .x(d3.scale.ordinal().domain(["Ops"]))
         .xUnits(dc.units.ordinal)
-        .y(d3.scale.linear().domain([0, 5]))
+        .y(d3.scale.linear().domain([0, maxOps]))
         .yAxisLabel("")
         .colors("#1754A2")
         .centerBar(true)
@@ -222,11 +257,17 @@ function displayCharts(modelData) {
             if(p.value.ab > 0){
                 var obp = (p.value.h + p.value.bb  + p.value.hbp) / (p.value.ab + p.value.bb + p.value.hbp + p.value.sf);
                 var slg =  (p.value.single + (2 * p.value.double) + (3 * p.value.triple) + (4 * p.value.hr)) / p.value.ab;
-                return obp + slg
+                selectedOps = (obp + slg).toFixed(3);
+                return selectedOps;
             }
             else
                 return 0;
-        });
+        })
+        .on("postRedraw", updateOps);
+
+        function updateOps(){
+            $("#selected-ops").text("OPS: " + selectedOps);
+        }
 
     opsChart.render();
 }

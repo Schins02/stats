@@ -16,7 +16,7 @@
 
 <div class="row">
    <div class="col-xs-3">
-      <div class="ui card player-card">
+      <div class="ui card pitcher-player-card">
          <div class="image player-photo">
             {% with "rangerstats/assets/"|add:player.first_name|add:"_"|add:player.last_name|add:".jpg" as image %}
             <img src="{% static image %}">
@@ -36,7 +36,6 @@
       </div>
    </div>
 
-
    <div class="col-xs-9 charts">
       <div id="canvas-svg">
          <div class="col-xs-12">
@@ -49,17 +48,21 @@
             <div class="chart-row second-chart-row">
             <div class="col-xs-12">
                <div class="chart-group">
-                  <div class="col-xs-3">
-                     <div id="whip-chart" class="chart"></div>
+                  <div class="col-xs-3 pitcher-chart-container">
+                     <div id="selected-whip" class="selected-pitcher-stat-display"></div>
+                     <div id="whip-chart" class="chart disabled-click-chart pitcher-small-chart"></div>
                   </div>
-                 <div class="col-xs-3">
-                     <div id="k-ratio-chart" class="chart"></div>
+                 <div class="col-xs-3 pitcher-chart-container">
+                  <div id="selected-k-ratio" class="selected-pitcher-stat-display">Whip:</div>
+                     <div id="k-ratio-chart" class="chart disabled-click-chart pitcher-small-chart"></div>
                   </div>
-                   <div class="col-xs-3">
-                     <div id="bb-ratio-chart" class="chart"></div>
+                   <div class="col-xs-3 pitcher-chart-container">
+                     <div id="selected-bb-ratio" class="selected-pitcher-stat-display">Whip:</div>
+                     <div id="bb-ratio-chart" class="chart disabled-click-chart pitcher-small-chart"></div>
                   </div> 
-                  <div class="col-xs-3">
-                     <div id="era-chart" class="chart"></div>
+                  <div class="col-xs-3 pitcher-chart-container">
+                     <div id="selected-era" class="selected-pitcher-stat-display">Whip:</div>
+                     <div id="era-chart" class="chart disabled-click-chart pitcher-small-chart"></div>
                   </div>
                </div>
             </div>
@@ -101,7 +104,7 @@
 
 <script type="text/javascript" src="{% static 'rangerstats/js/pitcher-charts.js' %}"></script>
 <script type="text/javascript">
-   displayCharts({{ game_log_json|safe }});
+   displayCharts({{ game_log_json|safe }}, {{ season_stats_json|safe }});
 </script>
 <script type="text/javascript" src="{% static 'rangerstats/js/pitcher.js' %}"></script>
 {% endblock %}

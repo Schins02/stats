@@ -1,10 +1,4 @@
-
 import os, json
-
-# hitters = ["Adrian_Beltre", "Robinson_Chirinos", "Jonathan_Lucroy", "Brett_Nicholas",
-# "Hanser_Alberto", "Elvis_Andrus", "Joey_Gallo", "Mitch_Moreland", "Rougned_Odor", "Jurickson_Profar",
-# "Delino_DeShields", "Ian_Desmond", "Carlos_Gomez", "Jared_Hoying", "Nomar_Mazara", "Ryan_Rua",
-# "Carlos_Beltran"]
 
 hitters = ["Robinson_Chirinos", "Jonathan_Lucroy", "Brett_Nicholas", "Hanser_Alberto", "Elvis_Andrus",
 "Adrian_Beltre", "Joey_Gallo", "Mitch_Moreland", "Rougned_Odor", "Jurickson_Profar", "Delino_DeShields",
@@ -36,7 +30,6 @@ for hitter_name in hitters:
 				game_record = json_text[name][date]
 				with open(cwd + "/" + hitter_name + "_FG_Alt.json") as game_record_alt_json:
 					alt_json_text = json.load(game_record_alt_json)
-					#print alt_json_text
 					game_record_alt = alt_json_text[name][date]
 					for tracked_stat in tracked_stats:
 						if tracked_stat in game_record:

@@ -69,22 +69,22 @@
       <tbody>
          {% for hitter, hitter_stats in hitter_stats_dict.items %}
             <tr class="hitter-tr">
-               <td class="name">{{ hitter.first_name }} {{hitter.last_name}}</td>
-               <td class="g">{{ hitter_stats.g }}</td>
-               <td class="ab">{{ hitter_stats.ab }}</td>
-               <td class="h">{{ hitter_stats.h }}</td>
-               <td class="1b">{{ hitter_stats.single }}</td>
-               <td class="2b">{{ hitter_stats.double }}</td>
-               <td class="3b">{{ hitter_stats.triple }}</td>
-               <td class="hr">{{ hitter_stats.hr }}</td>
-               <td class="rbi">{{ hitter_stats.rbi }}</td>
-               <td class="k">{{ hitter_stats.k }}</td>
-               <td class="bb">{{ hitter_stats.bb }}</td>
-               <td class="avg">{{ hitter_stats.avg|floatformat:3 }}</td>
-               <td class="obp">{{ hitter_stats.obp|floatformat:3 }}</td>
-               <td class="slg">{{ hitter_stats.slg|floatformat:3 }}</td>
-               <td class="ops">{{ hitter_stats.ops|floatformat:3 }}</td>
-               <td class="war">{{ hitter_stats.war|floatformat:2 }}</td>
+               <td class="hitter name">{{ hitter.first_name }} {{hitter.last_name}}</td>
+               <td class="hitter g">{{ hitter_stats.g }}</td>
+               <td class="hitter ab">{{ hitter_stats.ab }}</td>
+               <td class="hitter h">{{ hitter_stats.h }}</td>
+               <td class="hitter 1b">{{ hitter_stats.single }}</td>
+               <td class="hitter 2b">{{ hitter_stats.double }}</td>
+               <td class="hitter 3b">{{ hitter_stats.triple }}</td>
+               <td class="hitter hr">{{ hitter_stats.hr }}</td>
+               <td class="hitter rbi">{{ hitter_stats.rbi }}</td>
+               <td class="hitter k">{{ hitter_stats.k }}</td>
+               <td class="hitter bb">{{ hitter_stats.bb }}</td>
+               <td class="hitter avg">{{ hitter_stats.avg|floatformat:3 }}</td>
+               <td class="hitter obp">{{ hitter_stats.obp|floatformat:3 }}</td>
+               <td class="hitter slg">{{ hitter_stats.slg|floatformat:3 }}</td>
+               <td class="hitter ops">{{ hitter_stats.ops|floatformat:3 }}</td>
+               <td class="hitter war">{{ hitter_stats.war|floatformat:2 }}</td>
             </tr>
          {% endfor %}
       </tbody>
@@ -114,22 +114,22 @@
       <tbody>
          {% for pitcher, pitcher_stats in pitcher_stats_dict.items %}
             <tr class="pitcher-tr">
-               <td class="name">{{ pitcher.first_name }} {{pitcher.last_name}}</td>
-               <td class="g">{{ pitcher_stats.g }}</td>
-               <td class="w">{{ pitcher_stats.w }}</td>
-               <td class="l">{{ pitcher_stats.l }}</td>
-               <td class="sv">{{ pitcher_stats.sv }}</td>
-               <td class="ip">{{ pitcher_stats.ip }}</td>
-               <td class="whip">{{ pitcher_stats.whip|floatformat:2 }}</td>
-               <td class="k9">{{ pitcher_stats.k_per_nine|floatformat:2 }}</td>
-               <td class="k">{{ pitcher_stats.k }}</td>
-               <td class="bb9">{{ pitcher_stats.bb_per_nine|floatformat:2 }}</td>
-               <td class="hr9">{{ pitcher_stats.hr_per_nine|floatformat:2 }}</td>
-               <td class="babip">{{ pitcher_stats.babip|floatformat:3 }}</td>
-               <td class="era">{{ pitcher_stats.era|floatformat:2 }}</td>
-               <td class="fip">{{ pitcher_stats.fip|floatformat:2 }}</td>
-               <td class="xfip">{{ pitcher_stats.x_fip|floatformat:2 }}</td>
-               <td class="war">{{ pitcher_stats.war|floatformat:2 }}</td>
+               <td class="pitcher name">{{ pitcher.first_name }} {{pitcher.last_name}}</td>
+               <td class="pitcher g">{{ pitcher_stats.g }}</td>
+               <td class="pitcher w">{{ pitcher_stats.w }}</td>
+               <td class="pitcher l">{{ pitcher_stats.l }}</td>
+               <td class="pitcher sv">{{ pitcher_stats.sv }}</td>
+               <td class="pitcher ip">{{ pitcher_stats.ip }}</td>
+               <td class="pitcher whip">{{ pitcher_stats.whip|floatformat:2 }}</td>
+               <td class="pitcher k9">{{ pitcher_stats.k_per_nine|floatformat:2 }}</td>
+               <td class="pitcher k">{{ pitcher_stats.k }}</td>
+               <td class="pitcher bb9">{{ pitcher_stats.bb_per_nine|floatformat:2 }}</td>
+               <td class="pitcher hr9">{{ pitcher_stats.hr_per_nine|floatformat:2 }}</td>
+               <td class="pitcher babip">{{ pitcher_stats.babip|floatformat:3 }}</td>
+               <td class="pitcher era">{{ pitcher_stats.era|floatformat:2 }}</td>
+               <td class="pitcher fip">{{ pitcher_stats.fip|floatformat:2 }}</td>
+               <td class="pitcher xfip">{{ pitcher_stats.x_fip|floatformat:2 }}</td>
+               <td class="pitcher war">{{ pitcher_stats.war|floatformat:2 }}</td>
             </tr>
          {% endfor %}
       </tbody>

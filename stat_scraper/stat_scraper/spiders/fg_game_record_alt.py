@@ -4,7 +4,7 @@ from scrapy.selector import Selector
 class GameRecordSpider(scrapy.Spider):
 	name = "fg_game_record_alt"
 	allowed_domains = ["fangraphs.com"]
-	start_urls = ["http://www.fangraphs.com/statsd.aspx?playerid=5003&position=P&type=1&gds=&gde=&season=2016"]
+	start_urls = ["http://www.fangraphs.com/statsd.aspx?playerid=4972&position=P&type=1&gds=&gde=&season=2016"]
 
 	def parse(self, response):
 		name = response.xpath("//div[@id='content']/table//tr/td[1]/table/tr[1]/td/span/strong/text()")[0].extract()
@@ -16,7 +16,7 @@ class GameRecordSpider(scrapy.Spider):
 		stat_types = game_record_table.xpath("tr[@id='DailyStats1_dgSeason1_ctl00__1']/td/a/text()").extract()
 
 		tr_id_base = "DailyStats1_dgSeason1_ctl00__"
-		for num in range(2, 65):
+		for num in range(2, 34):
 			row = game_record_table.xpath("tr[@id="  + "'" + tr_id_base + str(num) + "']")
 			date = row.xpath("td/a/text()").extract()
 			td_elems = row.xpath("td/text()").extract()

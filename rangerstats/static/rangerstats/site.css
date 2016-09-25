@@ -72,12 +72,18 @@ body {
     height:460px !important;
 }
 
+.pitcher-player-card {
+    width: 260x !important; /* Test taking this out */
+    max-width: 260px !important;
+    height:440px !important;
+}
+
 .indiv-stats-player-card {
     max-width: 215px !important;
 }
 
 .indiv-stats-player-card:hover {
-  cursor: pointer;;
+  cursor: pointer;
 }
 
 #canvas-svg {
@@ -86,6 +92,30 @@ body {
 
 .filter-blurb {
   background-color:white;
+}
+
+/*.disabled-click-chart {
+  pointer-events: none;
+}*/
+
+.hitter-chart-container {
+  margin-top:20px;
+}
+
+.selected-hitter-stat-display {
+  margin-left:60px;
+}
+
+.pitcher-chart-container {
+  margin-top: 10px;
+}
+
+.pitcher-small-chart {
+  margin-top:10px;
+}
+
+.selected-pitcher-stat-display {
+  margin-left:30px;
 }
 
 .chart-row {
@@ -97,9 +127,12 @@ body {
 }
 
 .charts {
-    /*background-color:#d3d3d3;*/
     background-color: white;
     border-radius: 0.28571429rem 0.28571429rem 0.28571429rem 0.28571429rem !important;
+}
+
+.sorted-on {
+  background-color: #D3D3D3;
 }
 
 /* Team stats */
@@ -195,5 +228,28 @@ body {
   padding-top: 20px;
 }
 
+/* About page */
+
+#about-info-container {
+  background-color:rgba(255, 255, 255, 0.5);
+}
+
+#about-img-container {
+   padding-left:0;
+   margin-left:-15px
+}
+
+#about-img {
+  height:400px;
+   width:300px;
+}
+
+#about-txt-container {
+  margin-top:40px;
+}
+
+.more-about-txt {
+  margin-top:5px;
+}
 
 
