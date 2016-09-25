@@ -21,9 +21,6 @@ function sortTable(field) {
     row.k = +$(this).find(".k")[0].innerText;
     row.hr = +$(this).find(".hr")[0].innerText;
     //era fir xfip below
-		// row.avg = parseFloat($(this).find(".avg")[0].innerText);
-		// row.obp = parseFloat($(this).find(".obp")[0].innerText);
-		// row.slg = parseFloat($(this).find(".slg")[0].innerText);
 		data.push(row);
 	});
 
@@ -105,7 +102,7 @@ function sortOnField(data, field, sortOrder) {
       }
       break;
 
-    case "ip  ":
+    case "ip":
       if (sortOrder == "0") {
         data.sort(function(a, b) {
           return b.ip - a.ip;
