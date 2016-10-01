@@ -23,7 +23,7 @@ def pitcher(request, player_id):
 	context = {'player': player, 'game_log': game_log, 'game_log_json': game_log_json, 'season_stats_json': season_stats_json }
 	return render(request, 'rangerstats/pitcher.html', context)
 
-def teamstats(request):
+def season_stats(request):
 	hitter_stats_dict = {}
 	hitters = models.Player.objects.all().exclude(position='P')
 	for hitter in hitters:		
@@ -41,7 +41,7 @@ def teamstats(request):
 
 	return render(request, 'rangerstats/teamstats.html', context)
 
-def individual_stats(request):
+def roster(request):
 	players = models.Player.objects.all().order_by('last_name')
 	
 	num_rows = len(players) / 4
