@@ -175,6 +175,7 @@ function displayCharts(modelData, seasonStats) {
         .xUnits(dc.units.ordinal)
         .y(d3.scale.linear().domain([0, maxAvg]))
         .yAxisLabel("")
+        .elasticY(true)
         .centerBar(true)
         .colors("#1754A2")
         .dimension(abDim)
@@ -190,6 +191,10 @@ function displayCharts(modelData, seasonStats) {
         function updateAvg(){
             $("#selected-avg").text("Avg: " + selectedAvg)
         }
+
+    dc.override(avgChart, 'yAxisMax', function() { 
+        return Number(avgChart._yAxisMax()) + .1; 
+    });
 
     avgChart.render();
 
@@ -247,6 +252,7 @@ function displayCharts(modelData, seasonStats) {
         .xUnits(dc.units.ordinal)
         .y(d3.scale.linear().domain([0, maxOps]))
         .yAxisLabel("")
+        .elasticY(true)
         .colors("#1754A2")
         .centerBar(true)
         .dimension(abDim)
@@ -268,6 +274,68 @@ function displayCharts(modelData, seasonStats) {
         function updateOps(){
             $("#selected-ops").text("OPS: " + selectedOps);
         }
+
+    dc.override(opsChart, 'yAxisMax', function() { 
+        return Number(opsChart._yAxisMax()) + .3; 
+    });
+
+    // dc.override(opsChart, 'yAxisMin', function() {
+    //     var min = d3.min(opsChart.data(), function (e) {
+    //         return opsChart.valueAccessor()(e);
+    //     });
+    //     return min;
+    // });
+
+    // dc.override(opsChart, 'yAxisMin', function() {
+    //     // var min = d3.min(opsChart.data(), function (e) {
+    //     //     return opsChart.valueAccessor()(e);
+    //     // });
+    //     // return min;
+    //     return 0;
+    // });
+
+    // _chart.yAxisMin = function () {
+    //     var min = d3.min(_chart.data(), function (e) {
+    //         return _chart.valueAccessor()(e);
+    //     });
+    //     return dc.utils.subtract(min, _yAxisPadding);
+    // };
+
+    // dc.override(opsChart, '_prepareYAxis', function(g){
+    //     if (opsChart._y === undefined || opsChart.elasticY()) {
+    //         opsChart._y = d3.scale.linear();
+    //         var min = opsChart.yAxisMin() || 0,
+    //             max = (opsChart.yAxisMax() + 3) || 0;
+    //         opsChart._y.domain([min, max]).rangeRound([opsChart.yAxisHeight(), 0]);
+    //     }
+
+    //     opsChart._y.range([opsChart.yAxisHeight(), 0]);
+    //     opsChart._yAxis = opsChart._yAxis.scale(opsChart._y);
+
+    //     if (opsChart._useRightYAxis) {
+    //         opsChart._yAxis.orient('right');
+    //     }
+
+    //     opsChart._renderHorizontalGridLinesForAxis(g, _y, _yAxis);
+    // })
+
+    // _chart._prepareYAxis = function (g) {
+    //     if (_y === undefined || _chart.elasticY()) {
+    //         _y = d3.scale.linear();
+    //         var min = _chart.yAxisMin() || 0,
+    //             max = _chart.yAxisMax() || 0;
+    //         _y.domain([min, max]).rangeRound([_chart.yAxisHeight(), 0]);
+    //     }
+
+    //     _y.range([_chart.yAxisHeight(), 0]);
+    //     _yAxis = _yAxis.scale(_y);
+
+    //     if (_useRightYAxis) {
+    //         _yAxis.orient('right');
+    //     }
+
+    //     _chart._renderHorizontalGridLinesForAxis(g, _y, _yAxis);
+    // };
 
     opsChart.render();
 }

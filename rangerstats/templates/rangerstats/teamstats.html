@@ -1,10 +1,9 @@
 {% extends "rangerstats/main-template.html" %} 
 {% load static %}
 {% block content %}
-<!-- <link href="../../static/bootstrap-switch.min.css" type="text/css" rel="stylesheet"></link> -->
-<link href="{% static "rangerstats/bootstrap-switch.min.css" %}" type="text/css" rel="stylesheet"></link>
+
+<link href='{% static "rangerstats/bootstrap-switch.min.css" %}' type="text/css" rel="stylesheet"></link>
 <script type="text/javascript" src="{% static "rangerstats/js/bootstrap-switch.js" %}"></script>
-<<!-- script type="text/javascript src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script> -->
 <script type="text/javascript" src="{% static "rangerstats/js/teamstats.js" %}"></script>
 
 <input type="hidden" id="g-sort-order" value="0">
@@ -69,7 +68,7 @@
       <tbody>
          {% for hitter, hitter_stats in hitter_stats_dict.items %}
             <tr class="hitter-tr">
-               <td class="hitter name">{{ hitter.first_name }} {{hitter.last_name}}</td>
+               <td class="hitter name"><a href="/rangerstats/hitter/{{ hitter.id }}">{{ hitter.first_name }} {{hitter.last_name}}</a></td>
                <td class="hitter g">{{ hitter_stats.g }}</td>
                <td class="hitter ab">{{ hitter_stats.ab }}</td>
                <td class="hitter h">{{ hitter_stats.h }}</td>
@@ -114,7 +113,7 @@
       <tbody>
          {% for pitcher, pitcher_stats in pitcher_stats_dict.items %}
             <tr class="pitcher-tr">
-               <td class="pitcher name">{{ pitcher.first_name }} {{pitcher.last_name}}</td>
+               <td class="pitcher name"><a href="/rangerstats/pitcher/{{ pitcher.id }}">{{ pitcher.first_name }} {{pitcher.last_name}}</a></td>
                <td class="pitcher g">{{ pitcher_stats.g }}</td>
                <td class="pitcher w">{{ pitcher_stats.w }}</td>
                <td class="pitcher l">{{ pitcher_stats.l }}</td>
