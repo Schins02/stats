@@ -285,8 +285,8 @@ function displayCharts(modelData, seasonStats) {
     };
   }
 
-  var allera = ipDim.groupAll().reduce(eraReduceAdd, eraReduceRemove, eraReduceInitial);
-  var regTotalERA = regularize_groupAll(allera);
+  var allEra = ipDim.groupAll().reduce(eraReduceAdd, eraReduceRemove, eraReduceInitial);
+  var regTotalERA = regularize_groupAll(allEra);
   var selectedEra = 0;
 
   eraChart

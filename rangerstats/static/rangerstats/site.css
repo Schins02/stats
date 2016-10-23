@@ -135,11 +135,7 @@ body {
   background-color: #D3D3D3;
 }
 
-/* Team stats */
-
-/*#table-switch {
-  on-color:danger;
-}*/
+/* Season stats */
 
 .bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-red,
 .bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-red {
@@ -178,24 +174,18 @@ body {
   color:white !important;
 }
 
-/* FIX TABLE ON TEAMSTATS AND SIMPLIFY STMT */
-.hitter-th > small, .pitcher-th > small, 
-/* fix the below on team stats */
-.sort-hitter, .sort-pitcher {
+.hitter-th > small, .pitcher-th > small {
   visibility: hidden;
   margin-left:5px;
 }
 
-.hitter-th:hover > small, .pitcher-th:hover > small,
-/* fix the below on team stats*/
-.hitter-th:hover .sort-hitter {
+.hitter-th:hover > small, .pitcher-th:hover > small {
   visibility: visible;
 }
 
 .hitter-tr:hover {
     background-color: #d3d3d3;
 }
-
 
 .pitcher-th:hover .sort-pitcher {
   visibility: visible;
@@ -207,21 +197,12 @@ body {
 
 /* Hitter Game Log Table */
 
-/*#hitter-game-log-table-container {
-  margin-top:20px;
-  padding-left:0;
-  margin-left:0
-}*/
-
 #game-log-table-container {
   margin-top:20px;
   padding-left:0;
   margin-left:0
 }
 
-/*.hidden_row td{
-   display:none;
-}*/
 
 /* Individual Stats Index Page */
 .card-container {
@@ -251,5 +232,3 @@ body {
 .more-about-txt {
   margin-top:5px;
 }
-
-

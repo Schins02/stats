@@ -39,28 +39,13 @@ def season_stats(request):
 	context = {'hitter_stats_dict' : hitter_stats_dict,
 				'pitcher_stats_dict' : pitcher_stats_dict }
 
-	return render(request, 'rangerstats/teamstats.html', context)
+	return render(request, 'rangerstats/seasonstats.html', context)
 
 def roster(request):
-	players = models.Player.objects.all().order_by('last_name')
-	
-	num_rows = len(players) / 4
-	if len(players) % 4 != 0:
-		num_rows += 1
-	player_rows = [[] for i in range(num_rows)]
-	player_index = 0
-	row_index = 0
-	row = player_rows[0]
-	for player in players:
-		if player_index % 4 == 0 and row_index != 0:
-			row_index += 1
-			row = player_rows[row_index]
-		row.append(player)
-		player_index += 1
-
-	context = {'player_rows' : player_rows}
-	return render(request, 'rangerstats/individual-stats.html', context)
+	players = models.Player.objects.all().order_by('last_name').values()
+	context = {'players' : players }
+	return render(request, 'rangerstats/roster.html', context)
 
 def about(request):
-
 	return render(request, 'rangerstats/about.html')
+	

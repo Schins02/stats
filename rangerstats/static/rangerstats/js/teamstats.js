@@ -13,12 +13,51 @@ $(function() {
     }
   });
 
+  var hitterFieldMap = {
+    _g: "g",
+    _ab: "ab",
+    _h: "h",
+    _1b: "single",
+    _2b: "double",
+    _3b: "triple",
+    _hr: "hr",
+    _rbi: "rbi",
+    _k: "k",
+    _bb: "bb",
+    _avg: "avg",
+    _obp: "obp",
+    _slg: "slg",
+    _ops: "ops",
+    _war: "war"
+  };
+
+  var hitterFieldSortOrders = {
+    _g: 0,
+    _ab: 0,
+    _h: 0,
+    _1b: 0,
+    _2b: 0,
+    _3b: 0,
+    _hr: 0,
+    _rbi: 0,
+    _k: 0,
+    _bb: 0,
+    _avg: 0,
+    _obp: 0,
+    _slg: 0,
+    _ops: 0,
+    _war: 0
+  };
+
   $(".sort-hitter").click(function() {
-    var field = $(this).parent()[0].innerText.toLowerCase();
+    var displayedField = $(this).parent()[0].innerText.toLowerCase();
+    var field = hitterFieldMap["_" + displayedField]; 
+    var sortOrder = hitterFieldSortOrders["_" + displayedField];
     var data = []
     $(".hitter-tr").each(function() {
       var row = {};
       row.name = $(this).find(".name")[0].innerText;
+      row.link = $($(this).find(".link")[0]).attr("href");
       row.g = +$(this).find(".g")[0].innerText;
       row.ab = +$(this).find(".ab")[0].innerText;
       row.h = +$(this).find(".h")[0].innerText;
@@ -37,22 +76,16 @@ $(function() {
       data.push(row);
     });
 
-
-    var sortOrder = $("#" + field + "-sort-order").val();
-    if (sortOrder == 0) {
-      sortOnField(data, field, sortOrder);
-      $("#" + field + "-sort-order").val("1");
-    } else {
-      sortOnField(data, field, sortOrder);
-      $("#" + field + "-sort-order").val("0");
-    }
+    sortOnField(data, field, sortOrder);
+    hitterFieldSortOrders["_" + displayedField] = (sortOrder == 0 ? 1 : 0);
 
     var index = 0;
     var tbody = $(".hitter-table tbody");
     var rows = tbody.children();
     rows.each(function() {
       var newRow = data[index];
-      $(this).find(".name")[0].innerText = newRow.name;
+      $(this).find(".link")[0].innerText = newRow.name;
+      $($(this).find(".link")[0]).attr("href", newRow.link);
       $(this).find(".g")[0].innerText = newRow.g;
       $(this).find(".ab")[0].innerText = newRow.ab;
       $(this).find(".h")[0].innerText = newRow.h;
@@ -80,12 +113,49 @@ $(function() {
     });
   });
 
+  var pitcherFieldMap = {
+    g: "g",
+    w: "w",
+    l: "l",
+    sv: "sv",
+    ip: "ip",
+    k9: "kPerNine",
+    k: "k",
+    bb9: "bbPerNine",
+    hr9: "hrPerNine",
+    babip: "babip",
+    era: "era",
+    fip: "fip",
+    xfip: "xfip",
+    war: "war"
+  };
+
+  var pitcherFieldSortOrders = {
+    g:0,
+    w:0,
+    l:0,
+    sv:0,
+    ip:0,
+    k9:0,
+    k:0,
+    bb9:0,
+    hr9:0,
+    babip:0,
+    era:0,
+    fip:0,
+    xfip:0,
+    war:0
+  };
+
   $(".sort-pitcher").click(function() {
-    var field = $(this).parent()[0].innerText.toLowerCase().replace(/\//g, ""); 
+    var displayedField = $(this).parent()[0].innerText.replace(/\//g, "").toLowerCase();
+    var field = pitcherFieldMap[displayedField]; 
+    var sortOrder = pitcherFieldSortOrders[displayedField];
     var data = []
     $(".pitcher-tr").each(function() {
       var row = {};
       row.name = $(this).find(".name")[0].innerText;
+      row.link = $($(this).find(".link")[0]).attr("href");
       row.g = +$(this).find(".g")[0].innerText;
       row.w = +$(this).find(".w")[0].innerText;
       row.l = +$(this).find(".l")[0].innerText;
@@ -104,22 +174,16 @@ $(function() {
       data.push(row);
     });
 
-    var sortOrder = $("#p-" + field + "-sort-order").val();
-    if (sortOrder == 0) {
-      sortOnFieldPitcher(data, field, sortOrder);
-      $("#p-" + field + "-sort-order").val("1");
-    } else {
-      sortOnFieldPitcher(data, field, sortOrder);
-      $("#p-" + field + "-sort-order").val("0");
-    }
+    sortOnField(data, field, sortOrder);
+    pitcherFieldSortOrders[displayedField] = (sortOrder == 0 ? 1 : 0);
 
     var index = 0;
-
     var tbody = $(".pitcher-table tbody");
     var rows = tbody.children();
     rows.each(function() {
       var newRow = data[index];
-      $(this).find(".name")[0].innerText = newRow.name;
+      $(this).find(".link")[0].innerText = newRow.name;
+      $($(this).find(".link")[0]).attr("href", newRow.link);
       $(this).find(".g")[0].innerText = newRow.g;
       $(this).find(".w")[0].innerText = newRow.w;
       $(this).find(".l")[0].innerText = newRow.l;
@@ -142,7 +206,7 @@ $(function() {
       $(this).removeClass("sorted-on");
     });
 
-    $(".pitcher." + field).each(function(){
+    $(".pitcher." + displayedField).each(function(){
       $(this).addClass("sorted-on");
     });
 
@@ -151,371 +215,14 @@ $(function() {
 });
 
 function sortOnField(data, field, sortOrder) {
-  switch (field) {
-    case "g":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.g - a.g;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.g - b.g;
-        });
-      }
-      break;
-
-    case "ab":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.ab - a.ab;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.ab - b.ab;
-        });
-      }
-      break;
-
-    case "h":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.h - a.h;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.h - b.h;
-        });
-      }
-      break;
-
-    case "1b":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.single - a.single;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.single - b.single;
-        });
-      }
-      break;
-
-    case "2b":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.double - a.double;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.double - b.double;
-        });
-      }
-      break;
-
-    case "3b":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.triple - a.triple;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.triple - b.triple;
-        });
-      }
-      break;
-
-    case "hr":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.hr - a.hr;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.hr - b.hr;
-        });
-      }
-      break;
-
-    case "rbi":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.rbi - a.rbi;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.rbi - b.rbi;
-        });
-      }
-      break;
-
-    case "k":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.k - a.k
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.k - b.k;
-        });
-      }
-      break;
-
-    case "bb":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.bb - a.bb;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.bb - b.bb;
-        });
-      }
-      break;
-
-    case "avg":
-      if (sortOrder == "0") {
-        var x = "";
-        data.sort(function(a, b) {
-          return b.avg - a.avg;
-        });
-      } else {
-        var x = "";
-        data.sort(function(a, b) {
-          return a.avg - b.avg;
-        });
-      }
-      break;
-
-    case "obp":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.obp - a.obp;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.obp - b.obp;
-        });
-      }
-      break;
-
-    case "slg":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.slg - a.slg;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.slg - b.slg;
-        });
-      }
-      break;
-
-    case "ops":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.ops - a.ops;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.ops - b.ops;
-        });
-      }
-      break;
-
-    case "war":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.war - a.war;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.war - b.war;
-        });
-      }
-      break;
-  }
-}
-
-function sortOnFieldPitcher(data, field, sortOrder) {
-  switch (field) {
-    case "g":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.g - a.g;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.g - b.g;
-        });
-      }
-      break;
-
-    case "w":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.w - a.w;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.w - b.w;
-        });
-      }
-      break;
-
-    case "l":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.l - a.l;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.l - b.l;
-        });
-      }
-      break;
-
-    case "sv":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.sv - a.sv;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.sv - b.sv;
-        });
-      }
-      break;
-
-    case "ip":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.ip - a.ip;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.ip - b.ip;
-        });
-      }
-      break;
-
-    case "whip":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.whip - a.whip;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.whip - b.whip;
-        });
-      }
-      break;
-
-    case "k9":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.kPerNine - a.kPerNine;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.kPerNine - b.kPerNine;
-        });
-      }
-      break;
-
-    case "k":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.k - a.k;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.k - b.k;
-        });
-      }
-      break;
-
-    case "bb9":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.bbPerNine - a.bbPerNine;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.bbPerNine - b.bbPerNine;
-        });
-      }
-      break;
-
-    case "hr9":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.hrPerNine - a.hrPerNine
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.hrPerNine - b.hrPerNine;
-        });
-      }
-      break;
-
-    case "babip":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.babip - a.babip;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.babip - b.babip;
-        });
-      }
-      break;
-
-    case "era":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.era - a.era;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.era - b.era;
-        });
-      }
-      break;
-
-    case "fip":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.fip - a.fip;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.fip - b.fip;
-        });
-      }
-      break;
-
-    case "xfip":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.xfip - a.xfip;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.xfip - b.xfip;
-        });
-      }
-      break;
-
-    case "war":
-      if (sortOrder == "0") {
-        data.sort(function(a, b) {
-          return b.war - a.war;
-        });
-      } else {
-        data.sort(function(a, b) {
-          return a.war - b.war;
-        });
-      }
-      break;
+  if(sortOrder == 0){
+    data.sort(function(a, b) {
+      var v = a[field];
+      return b[field] - a[field];
+    });
+  } else {
+      data.sort(function(a, b){
+        return a[field] - b[field];
+      });
   }
 }
