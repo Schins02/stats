@@ -1,0 +1,30 @@
+{% extends "rangerstats/main-template.html" %} 
+{% load static %}
+{% block content %}
+
+<div class="ui link cards">
+  {% for player in players %}      
+            <div class="card indiv-stats-player-card" id="{{ player.id }}" data-position="{{ player.position }}">
+               <div class="image indiv-stats-player-photo">
+                  {% with "rangerstats/assets/"|add:player.first_name|add:"_"|add:player.last_name|add:".jpg" as image %}
+                  <img src="{% static image %}">
+                  {% endwith %}
+               </div>
+               <div class="content">
+                  <a class="header">{{ player.first_name }} {{ player.last_name }}</a>
+                  <div class="meta">
+                  </div>
+                  <div class="description">
+                     {{player.position}}<br>
+                     B/T: {{ player.bat }}/{{player.throw}}<br>
+                     {{player.height}}/{{ player.weight }}<br>
+                     Age: {{player.age}}
+                  </div>
+               </div>
+            </div>  
+   {% endfor %} 
+</div>
+
+<script type="text/javascript" src="{% static 'rangerstats/js/individual-stats.js' %}"></script>
+
+{% endblock %}
