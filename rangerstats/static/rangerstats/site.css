@@ -205,6 +205,9 @@ body {
   margin-left:0
 }
 
+.game-log-table {
+  margin-bottom: 60px !important;
+}
 
 /* Individual Stats Index Page */
 .card-container {
