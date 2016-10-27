@@ -155,10 +155,12 @@ body {
 
 .hitter-table {
   margin-top: 60px !important;
+  margin-bottom: 60px !important;
 }
 
 .pitcher-table {
   margin-top: 60px !important;
+  margin-bottom: 60px !important;
   display: none;
 }
 

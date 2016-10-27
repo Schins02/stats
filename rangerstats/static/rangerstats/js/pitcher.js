@@ -65,11 +65,11 @@ function sortTable(field) {
 
   $(".sorted-on").each(function() {
     $(this).removeClass("sorted-on");
-  })
+  });
 
   $("tr td." + field).each(function() {
     $(this).addClass("sorted-on");
-  })
+  });
 }
 
 function sortOnField(data, field, sortOrder) {

@@ -1,4 +1,6 @@
 $(function() {
+  $("#season-stats").addClass("active");
+
   var bsSwitch = $("#table-switch");
   $(bsSwitch).bootstrapSwitch();
   $(bsSwitch).bootstrapSwitch("onColor", "red");

@@ -154,6 +154,10 @@ function displayCharts(modelData, seasonStats) {
       $("#selected-whip").text("Whip: " + selectedWhip);
     }
 
+  dc.override(whipChart, 'yAxisMax', function() {
+    return Number(whipChart._yAxisMax()) + .5;
+  });
+
   whipChart.render();
 
   var kRatioChart = dc.barChart("#k-ratio-chart");
@@ -296,6 +300,7 @@ function displayCharts(modelData, seasonStats) {
     .xUnits(dc.units.ordinal)
     .y(d3.scale.linear().domain([0, 5]))
     .yAxisLabel("")
+    .elasticY(true)
     .colors("#1754A2")
     .centerBar(true)
     .dimension(ipDim)
@@ -315,6 +320,10 @@ function displayCharts(modelData, seasonStats) {
     function updateEra() {
       $("#selected-era").text("ERA: " + selectedEra)
     }
+
+  dc.override(eraChart, 'yAxisMax', function() {
+    return Number(eraChart._yAxisMax()) + .5;
+  });
 
   eraChart.render();
 
