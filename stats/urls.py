@@ -26,6 +26,7 @@ urlpatterns = [
 	url(r'pitcher/(?P<player_id>[0-9]+)', views.pitcher, name='pitcher'),
 	url(r'roster/', views.roster, name='roster'),
 	url(r'season-stats/', views.season_stats, name='season_stats'),
+    url(r'team-stats/', views.team_stats, name='team_stats'),
 	url(r'about/', views.about, name='about'),
     url(r'^admin/', admin.site.urls),
 ]

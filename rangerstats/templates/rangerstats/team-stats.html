@@ -1,0 +1,27 @@
+{% extends "rangerstats/main-template.html" %} 
+{% load static %}
+{% block content %}
+	<link href='{% static "rangerstats/bootstrap-switch.min.css" %}' type="text/css" rel="stylesheet"></link>
+
+	<div class="row" style="margin-top:35px; margin-bottom:35px">
+		 <input type="checkbox" id="table-switch" data-on-text="Hitting" data-off-text="Pitching" checked>
+		<div class="col-xs-12" id="hitting-stats-container" style="margin-top:35px">
+			<div id="ops-chart-container" class="col-xs-6"></div>
+			<div id="avg-chart-container" class="col-xs-6"></div>
+			<div id="hr-chart-container" class="col-xs-6" style="margin-top:20px"></div>
+			<div id="tb-chart-container" class="col-xs-6" style="margin-top:20px"></div>
+		</div>
+		<div class="col-xs-12" id="pitching-stats-container" style="margin-top:35px;">
+			<div id="era-chart-container" class="col-xs-6"></div>
+			<div id="qs-chart-container" class="col-xs-6"></div>
+			<div id="baa-chart-container" class="col-xs-6" style="margin-top:20px;"></div>
+			<div id="k-chart-container" class="col-xs-6" style="margin-top:20px;"></div>
+		</div>
+	</div>
+
+
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript" src="{% static 'rangerstats/js/bootstrap-switch.js' %}"></script>
+<script type="text/javascript" src="{% static 'rangerstats/js/team-stats.js' %}"></script>
+{% endblock %}

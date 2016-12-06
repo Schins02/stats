@@ -121,6 +121,7 @@ $(function() {
     l: "l",
     sv: "sv",
     ip: "ip",
+    whip: "whip",
     k9: "kPerNine",
     k: "k",
     bb9: "bbPerNine",

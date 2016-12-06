@@ -39,12 +39,15 @@ def season_stats(request):
 	context = {'hitter_stats_dict' : hitter_stats_dict,
 				'pitcher_stats_dict' : pitcher_stats_dict }
 
-	return render(request, 'rangerstats/seasonstats.html', context)
+	return render(request, 'rangerstats/season-stats.html', context)
 
 def roster(request):
 	players = models.Player.objects.all().order_by('last_name').values()
 	context = {'players' : players }
 	return render(request, 'rangerstats/roster.html', context)
+
+def team_stats(request):
+	return render(request, 'rangerstats/team-stats.html')
 
 def about(request):
 	return render(request, 'rangerstats/about.html')
