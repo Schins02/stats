@@ -51,8 +51,8 @@ $(function() {
     _war: 0
   };
 
-  $(".sort-hitter").click(function() {
-    var displayedField = $(this).parent()[0].innerText.toLowerCase();
+  $(".hitter-th").click(function() {
+    var displayedField = this.innerText.toLowerCase();
     var field = hitterFieldMap["_" + displayedField]; 
     var sortOrder = hitterFieldSortOrders["_" + displayedField];
     var data = []
@@ -150,8 +150,8 @@ $(function() {
     war:0
   };
 
-  $(".sort-pitcher").click(function() {
-    var displayedField = $(this).parent()[0].innerText.replace(/\//g, "").toLowerCase();
+  $(".pitcher-th").click(function() {
+    var displayedField = this.innerText.replace(/\//g, "").toLowerCase();
     var field = pitcherFieldMap[displayedField]; 
     var sortOrder = pitcherFieldSortOrders[displayedField];
     var data = []
