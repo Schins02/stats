@@ -94,9 +94,9 @@ body {
   background-color:white;
 }
 
-/*.disabled-click-chart {
+.disabled-click-chart {
   pointer-events: none;
-}*/
+}
 
 .hitter-chart-container {
   margin-top:20px;
