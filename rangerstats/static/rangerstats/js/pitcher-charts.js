@@ -9,9 +9,7 @@ function displayCharts(modelData, seasonStats) {
   });
 
   var totalIp = 0;
-  //var totalPartialIn
   data.forEach(function(d, i) {
-    //d.game_date = d3.time.format("%Y-%m-%d").parse(d.game_date);
     var splitDate = d.game_date.split('T');  
     d.game_date = d3.time.format("%Y-%m-%d").parse(splitDate[0]);
     var splitIp = d.ip.toString().split('.');
@@ -141,12 +139,9 @@ function displayCharts(modelData, seasonStats) {
       if (p.value.ip > 0) {
         selectedWhip = ((p.value.h + p.value.bb) / p.value.ip).toFixed(2);
         return selectedWhip;
-        //var whip = (p.value.h + p.value.bb) / p.value.ip;
-        //return whip
       } else
         selectedWhip = 0;
         return selectedWhip;
-        //return 0;
     })
     .on("postRedraw", updateWhip);
 
